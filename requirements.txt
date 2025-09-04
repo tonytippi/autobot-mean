@@ -1,0 +1,9 @@
+requests==2.32.3
+pandas==2.2.2
+numpy==1.26.4
+python-dotenv==1.0.1
+PyYAML==6.0.2
+SQLAlchemy==2.0.32
+psycopg2-binary==2.9.9
+streamlit==1.36.0
+matplotlib==3.8.4

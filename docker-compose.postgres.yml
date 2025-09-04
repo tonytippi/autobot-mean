@@ -1,0 +1,46 @@
+services:
+  db:
+    image: postgres:16
+    container_name: meanrsi_db
+    environment:
+      POSTGRES_DB: meanrsi
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app -d meanrsi"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  app:
+    build: .
+    container_name: meanrsi_app
+    env_file: .env
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://app:app@db:5432/meanrsi
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  dashboard:
+    build: .
+    container_name: meanrsi_dashboard
+    command: streamlit run dashboard.py --server.port=8501 --server.address=0.0.0.0
+    env_file: .env
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://app:app@db:5432/meanrsi
+    ports:
+      - "8501:8501"
+    depends_on:
+      db:
+        condition: service_healthy
+      app:
+        condition: service_started
+    restart: unless-stopped
+
+volumes:
+  pgdata:
