@@ -9,4 +9,4 @@ COPY . .
 ENV PYTHONUNBUFFERED=1     PYTHONDONTWRITEBYTECODE=1
 
 # default command runs the bot (REST polling)
-CMD ["python", "main.py"]
+CMD ["python", "src/main.py"]

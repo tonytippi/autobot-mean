@@ -12,7 +12,7 @@ services:
   dashboard:
     build: .
     container_name: meanrsi_dashboard
-    command: streamlit run dashboard.py --server.port=8501 --server.address=0.0.0.0
+    command: streamlit run src/dashboard.py --server.port=8501 --server.address=0.0.0.0
     env_file: .env
     environment:
       - DATABASE_URL=${DATABASE_URL:-sqlite:///data/signals.db}
