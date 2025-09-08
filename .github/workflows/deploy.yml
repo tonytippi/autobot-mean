@@ -24,10 +24,8 @@ jobs:
           pip install -r requirements.txt
 
       - name: Set up SSH key
-        env:
-          EC2_KEY: ${{ secrets.EC2_KEY }}
         run: |
-          echo $EC2_KEY > key.pem
+          echo "${{ secrets.EC2_KEY }}" > key.pem
           chmod 600 key.pem
 
       - name: Deploy to EC2
