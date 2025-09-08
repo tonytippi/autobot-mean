@@ -34,3 +34,8 @@ jobs:
           USER: ${{ secrets.EC2_USER }}
         run: |
           scp -i key.pem -o StrictHostKeyChecking=no -r . "$USER@$HOST:/home/ubuntu/mean-rsi"
+          ssh -i key.pem -o StrictHostKeyChecking=no "$USER@$HOST" << 'EOF'
+            cd /home/ubuntu/mean-rsi
+            docker-compose down
+            docker-compose up -d --build -f docker-compose.postgres.yml
+            exit
