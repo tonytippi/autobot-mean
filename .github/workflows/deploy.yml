@@ -33,4 +33,4 @@ jobs:
           HOST: ${{ secrets.EC2_HOST }}
           USER: ${{ secrets.EC2_USER }}
         run: |
-          scp -i key.pem -o StrictHostKeyChecking=no -r . $USER@$HOST:/home/ubuntu/mean-rsi`
+          scp -i key.pem -o StrictHostKeyChecking=no -r . "$USER@$HOST:/home/ubuntu/mean-rsi"
